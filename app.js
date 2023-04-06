@@ -23,3 +23,4 @@ app.listen(PORT,async()=>{
     await connectDB();
     console.log(`server listening to port:${PORT}`)
 });
+

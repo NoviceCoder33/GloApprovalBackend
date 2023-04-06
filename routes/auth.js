@@ -10,13 +10,13 @@ const router = express.Router();
 router.post("/register", async (req, res) => {
   const { name, email, password } = req.body;
 
-  // check all the missing fields.
+  // check all the missing fields
   if (!name || !email || !password)
     return res
       .status(400)
       .json({ error: `Please enter all the required field.` });
 
-  // name validation.
+  // name validation
   if (name.length > 25)
     return res
       .status(400)
