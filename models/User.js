@@ -9,14 +9,10 @@ const userSchema = mongoose.Schema({
     type: String,
     required: [true,"Email is required"]
   },
-  mobile:{
-    type: Number,
-    required: [true,"Mobile Number is required"]
-  },
   password:{
     type: String,
     required: [true,"Password is required"]
-  },
+  }
 });
 
 const User = mongoose.model("User", userSchema);

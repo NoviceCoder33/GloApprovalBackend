@@ -8,10 +8,10 @@ const User = require("../models/User");
 const router = express.Router();
 
 router.post("/register", async (req, res) => {
-  const { name, email,mobile, password } = req.body;
+  const { name, email, password } = req.body;
 
   // check all the missing fields.
-  if (!name || !email || !mobile || !password)
+  if (!name || !email || !password)
     return res
       .status(400)
       .json({ error: `Please enter all the required field.` });
@@ -22,14 +22,7 @@ router.post("/register", async (req, res) => {
       .status(400)
       .json({ error: "Name can only be less than 25 characters" });
 
-  // mobile validation
-  if(mobile.length <10)
-    return res
-    .status(400)
-    .json({ error: "Mobile number length should be 10" });
-     
-
-  // email validation.
+    // email validation.
   const emailReg =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -52,7 +45,7 @@ router.post("/register", async (req, res) => {
       });
 
     const hashedPassword = await bcrypt.hash(password, 12);
-    const newUser = new User({ name, email,mobile, password: hashedPassword });
+    const newUser = new User({ name, email, password: hashedPassword });
 
     // save the user.
     const result = await newUser.save();
@@ -67,15 +60,15 @@ router.post("/register", async (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
-  const { mobile, password } = req.body;
+  const { email, password } = req.body;
 
-  if (!mobile || !password)
+  if (!email || !password)
     return res
       .status(400)
       .json({ error: "please enter all the required fields!" });
 
   try {
-    const doesUserExits = await User.findOne({ mobile });
+    const doesUserExits = await User.findOne({ email });
 
     if (!doesUserExits)
       return res.status(400).json({ error: "Invalid email or password!" });

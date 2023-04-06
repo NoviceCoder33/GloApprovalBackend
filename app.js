@@ -15,7 +15,7 @@ app.options("*", cors());
 
 //routes
 app.use("/api", require("./routes/auth"));
-app.use("/api", require("./routes/Transaction"));
+app.use("/api", require("./routes/Reimbursement"));
 
 
 const PORT = process.env.PORT || 8000;
